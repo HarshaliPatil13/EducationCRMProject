@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SP register</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header::crm-header}"></div>
+
+    <main class="container-fluid" style="min-height: 600px;">
+      <section class="container my-4">
+        <h3 class="text-center mb-4">Register Here</h3>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-3 col-md-6">
+            <form
+              action="regForm"
+              method="post"
+              onsubmit="return validateForm()"
+              th:object="${user}"
+            >
+              <div class="card p-4 shadow">
+                <div
+                  th:if="${successMsg}"
+                  class="alert alert-success"
+                  role="alert"
+                >
+                  <span th:text="${successMsg}"></span>
+                </div>
+
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    th:field="*{name}"
+                    name="name"
+                    required
+                  />
+                  <div
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}"
+                  ></div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email:</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    th:field="*{email}"
+                    name="email"
+                    required
+                  />
+                  <div
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}"
+                  ></div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password:</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    th:field="*{password}"
+                    name="password"
+                    required
+                  />
+                  <div
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}"
+                  ></div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="phoneno" class="form-label">Phone:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="phoneno"
+                    th:field="*{phoneno}"
+                    name="phoneno"
+                    required
+                  />
+                  <div
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('phoneno')}"
+                    th:errors="*{phoneno}"
+                  ></div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="city" class="form-label">City:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    th:field="*{city}"
+                    name="city"
+                    required
+                  />
+                  <div
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('city')}"
+                    th:errors="*{city}"
+                  ></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div th:replace="~{fragments/footer::crm-footer}"></div>
+
+    <script type="text/javascript">
+      function validateForm() {
+        var name = document.forms[0]["name"].value;
+        var namePattern = /^[a-zA-Z\s]{3,25}$/;
+
+        var email = document.forms[0]["email"].value;
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        var password = document.forms[0]["password"].value;
+        var passwordPattern = /^[a-zA-Z0-9]{5,25}$/;
+
+        var phoneno = document.forms[0]["phoneno"].value;
+        var phonePattern = /^[0-9]{10}$/;
+
+        var city = document.forms[0]["city"].value;
+        var cityPattern = /^[a-zA-Z\s]{3,25}$/;
+
+        if (!namePattern.test(name)) {
+          alert("Invalid Name");
+          return false;
+        } else if (!emailPattern.test(email)) {
+          alert("Invalid Email");
+          return false;
+        } else if (!passwordPattern.test(password)) {
+          alert("Invalid Password");
+          return false;
+        } else if (!phonePattern.test(phoneno)) {
+          alert("Invalid Phone Number");
+          return false;
+        } else if (!cityPattern.test(city)) {
+          alert("Invalid City");
+          return false;
+        }
+        return true;
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
